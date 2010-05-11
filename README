@@ -3,7 +3,7 @@ Post link: http://migre.me/DUiE
 
 Use mvn scala:console to play importint CEP and CEP._
 
-CEP.start function: returns a Drools session, a Stream and a pseudoclock instance. This is de method used in Test scripts.
+CEP.start function: returns a Drools session, a Stream and a pseudoclock instance. This is the method used in Test scripts.
 CEP.MyTimer.advanceSeconds advance the session timer and return a timestamp to be used in the new event.
 
 
