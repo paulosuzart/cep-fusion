@@ -1,0 +1,32 @@
+#created on: May 6, 2010
+package cep.fusion
+import cep.fusion.CEP.TemperatureChange
+
+
+declare TemperatureChange
+	@role(event)
+	@timestamp(time)
+end
+
+
+rule "Inside the limits in 20s"
+	
+	when
+		$n : Number(doubleValue >= 135 && doubleValue <= 145) from 
+			accumulate (
+						TemperatureChange($t: temperature)  over window:time(20s) from entry-point "temp-change", 
+						average($t)
+					) 
+	then 
+		System.out.println("About to Blow Up!!!!! Morhe than 20 seconds inside the limits. Average: " + $n);
+end
+
+
+rule "Hight Variance"
+
+	when
+		$a : TemperatureChange(t: temperature) from entry-point "temp-change"
+		$b : TemperatureChange(t2: temperature, ( eval ((t - temperature) >= 10) || eval ((temperature - t) >= 10)), this after[0s, 5s] $a) from entry-point "temp-change"
+	then
+		System.out.println("High Temperature Variance!!!!!");		
+end
