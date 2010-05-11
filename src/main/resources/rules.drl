@@ -21,7 +21,7 @@ rule "Inside the limits in 20s"
 end
 
 
-rule "Hight Variance"
+rule "High Variance"
 
 	when
 		$a : TemperatureChange(t: temperature) from entry-point "temp-change"
